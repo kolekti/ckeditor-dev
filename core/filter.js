@@ -1599,7 +1599,7 @@
 			attrs.style = styles;
 
 		if ( element.classes.length )
-			attrs[ 'class' ] = element.classes.sort().join( ' ' );
+			attrs[ 'class' ] = element.classes.join( ' ' );
 	}
 
 	// Update element object based on status of filtering.
@@ -1673,7 +1673,7 @@
 					classesArr.push( classes[ i ] );
 			}
 			if ( classesArr.length )
-				attrs[ 'class' ] = classesArr.sort().join( ' ' );
+				attrs[ 'class' ] = classesArr.join( ' ' );
 
 			if ( origClasses && classesArr.length < origClasses.split( /\s+/ ).length )
 				isModified = true;
