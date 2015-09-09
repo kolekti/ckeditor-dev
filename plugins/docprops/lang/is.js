@@ -34,7 +34,8 @@ CKEDITOR.plugins.setLang( 'docprops', 'is', {
 	metaCopyright: 'Höfundarréttur',
 	metaDescription: 'Lýsing skjals',
 	metaKeywords: 'Lykilorð efnisorðaskrár (aðgreind með kommum)',
-	other: '<annar>',
+	metaTopicFile: 'topicfile',
+        other: '<annar>',
 	previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>', // MISSING
 	title: 'Eigindi skjals',
 	txtColor: 'Litur texta',

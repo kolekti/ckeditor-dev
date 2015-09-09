@@ -34,7 +34,8 @@ CKEDITOR.plugins.setLang( 'docprops', 'sr', {
 	metaCopyright: 'Ауторска права',
 	metaDescription: 'Опис документа',
 	metaKeywords: 'Кључне речи за индексирање документа (раздвојене зарезом)',
-	other: '<other>',
+	metaTopicFile: 'topicfile',
+        other: '<other>',
 	previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>', // MISSING
 	title: 'Особине документа',
 	txtColor: 'Боја текста',

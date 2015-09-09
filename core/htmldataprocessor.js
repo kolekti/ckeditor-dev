@@ -879,7 +879,7 @@
 			/<noscript[\s\S]*?<\/noscript>/gi,
 
 			// Avoid meta tags being stripped (#8117).
-			/<meta[\s\S]*?\/?>/gi
+			// /<meta[\s\S]*?\/?>/gi
 		].concat( protectRegexes );
 
 		// First of any other protection, we must protect all comments

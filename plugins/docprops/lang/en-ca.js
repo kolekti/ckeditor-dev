@@ -34,7 +34,8 @@ CKEDITOR.plugins.setLang( 'docprops', 'en-ca', {
 	metaCopyright: 'Copyright', // MISSING
 	metaDescription: 'Document Description', // MISSING
 	metaKeywords: 'Document Indexing Keywords (comma separated)', // MISSING
-	other: 'Other...', // MISSING
+	metaTopicFile: 'topicfile',
+        other: 'Other...', // MISSING
 	previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>', // MISSING
 	title: 'Document Properties', // MISSING
 	txtColor: 'Text Color', // MISSING

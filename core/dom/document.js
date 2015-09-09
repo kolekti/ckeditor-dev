@@ -195,7 +195,8 @@ CKEDITOR.tools.extend( CKEDITOR.dom.document.prototype, {
 	 */
 	getElementsByTag: function( tagName, namespace ) {
 		if ( !( CKEDITOR.env.ie && ( document.documentMode <= 8 ) ) && namespace )
-			tagName = namespace + ':' + tagName;
+		    return new CKEDITOR.dom.nodeList( this.$.getElementsByTagNameNS( namespace, tagName ) );
+	            // tagName = namespace + ':' + tagName;
 		return new CKEDITOR.dom.nodeList( this.$.getElementsByTagName( tagName ) );
 	},
 

@@ -1,8 +1,4 @@
-
 ( function() {
-    
-
-
     var condDialog = function( editor, dialogType ) {
 
 	var expr = {};

@@ -34,7 +34,8 @@ CKEDITOR.plugins.setLang( 'docprops', 'hi', {
 	metaCopyright: 'कॉपीराइट',
 	metaDescription: 'डॉक्यूमॅन्ट करॅक्टरन',
 	metaKeywords: 'डॉक्युमॅन्ट इन्डेक्स संकेतशब्द (अल्पविराम से अलग करें)',
-	other: '<अन्य>',
+	metaTopicFile: 'topicfile',
+        other: '<अन्य>',
 	previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>', // MISSING
 	title: 'डॉक्यूमॅन्ट प्रॉपर्टीज़',
 	txtColor: 'टेक्स्ट रंग',

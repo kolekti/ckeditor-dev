@@ -34,7 +34,8 @@ CKEDITOR.plugins.setLang( 'docprops', 'si', {
 	metaCopyright: 'ප්‍රකාශන ',
 	metaDescription: 'ලිපිගොනු ',
 	metaKeywords: 'ලිපිගොනු පෙලගේසමේ විශේෂ වචන (කොමා වලින් වෙන්කරන ලද)',
-	other: 'අනෙකුත්',
+	metaTopicFile: 'topicfile',
+        other: 'අනෙකුත්',
 	previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>', // MISSING
 	title: 'පෝරමයේ ගුණ/',
 	txtColor: 'අක්ෂර වර්ණ',

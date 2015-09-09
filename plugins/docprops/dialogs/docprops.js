@@ -100,8 +100,8 @@ CKEDITOR.dialog.add( 'docProps', function( editor ) {
 
 	function createMetaHash( doc ) {
 		var hash = {},
-			metas = doc.getElementsByTag( 'meta' ),
-			count = metas.count();
+		    metas = doc.getElementsByTag('meta','*' ),
+		    count = metas.count();
 
 		for ( var i = 0; i < count; i++ ) {
 			var meta = metas.getItem( i );
@@ -314,14 +314,7 @@ CKEDITOR.dialog.add( 'docProps', function( editor ) {
 						[ 'XHTML 1.1', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">' ],
 						[ 'XHTML 1.0 Transitional', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' ],
 						[ 'XHTML 1.0 Strict', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' ],
-						[ 'XHTML 1.0 Frameset', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">' ],
-						[ 'HTML 5', '<!DOCTYPE html>' ],
-						[ 'HTML 4.01 Transitional', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' ],
-						[ 'HTML 4.01 Strict', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">' ],
-						[ 'HTML 4.01 Frameset', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">' ],
-						[ 'HTML 3.2', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">' ],
-						[ 'HTML 2.0', '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">' ],
-						[ lang.other, 'other' ]
+						[ 'HTML 5', '<!DOCTYPE html>' ]
 					],
 					onChange: handleOther,
 					setup: function() {
@@ -367,8 +360,9 @@ CKEDITOR.dialog.add( 'docProps', function( editor ) {
 						html.removeAttribute( 'xmlns' );
 					}
 				}
-			} ]
+			}]
 		},
+/*
 		{
 			id: 'design',
 			label: lang.design,
@@ -527,6 +521,7 @@ CKEDITOR.dialog.add( 'docProps', function( editor ) {
 				} ]
 			} ]
 		},
+*/
 		{
 			id: 'meta',
 			label: lang.meta,
@@ -558,9 +553,16 @@ CKEDITOR.dialog.add( 'docProps', function( editor ) {
 					label: lang.metaCopyright,
 					setup: setupMeta( 'copyright' ),
 					commit: commitMeta( 'copyright' )
+				},
+				{
+					type: 'text',
+					id: 'metaTopicFile',
+					label: lang.metaTopicFile,
+					setup: setupMeta( 'topicfile' ),
+					commit: commitMeta( 'topicfile' )
 				}
 			]
-		},
+		}/*,
 		{
 			id: 'preview',
 			label: langCommon.preview,
@@ -586,6 +588,6 @@ CKEDITOR.dialog.add( 'docProps', function( editor ) {
 					iframe.getAscendant( 'table' ).setStyle( 'height', '100%' );
 				}
 			} ]
-		} ]
+		}*/ ]
 	};
 } );

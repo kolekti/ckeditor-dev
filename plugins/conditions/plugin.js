@@ -131,13 +131,13 @@
 		    console.log('test --------- <');
 		}
 	    }));
-
+/*
 	    editor.ui.addButton( 'conditions', {
 		label: 'run test',
 		command: 'testconditions',
 		toolbar: 'insert'
 	    });
-
+*/
 	    // add menu definition
 	    
 	    if (editor.addMenuItems) {
