@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'gu', {
 	metaCopyright: 'કૉપિરાઇટ',
 	metaDescription: 'ડૉક્યુમન્ટ વર્ણન',
 	metaKeywords: 'ડૉક્યુમન્ટ ઇન્ડેક્સ સંકેતશબ્દ (અલ્પવિરામ (,) થી અલગ કરો)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<other>',
 	previewHtml: '<p>આ એક <strong>સેમ્પલ ટેક્ષ્ત્</strong> છે. તમે <a href="javascript:void(0)">CKEditor</a> વાપરો છો.</p>',
 	title: 'ડૉક્યુમન્ટ ગુણ/પ્રૉપર્ટિઝ',

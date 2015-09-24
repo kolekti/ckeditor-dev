@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'ru', {
 	metaCopyright: 'Авторские права',
 	metaDescription: 'Описание документа',
 	metaKeywords: 'Ключевые слова документа (через запятую)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'Другой ...',
 	previewHtml: '<p>Это <strong>пример</strong> текста, написанного с помощью <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Свойства документа',

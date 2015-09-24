@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'fi', {
 	metaCopyright: 'Tekijänoikeudet',
 	metaDescription: 'Kuvaus',
 	metaKeywords: 'Hakusanat (pilkulla erotettuna)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<muu>',
 	previewHtml: '<p>Tämä on <strong>esimerkkitekstiä</strong>. Käytät juuri <a href="javascript:void(0)">CKEditoria</a>.</p>',
 	title: 'Dokumentin ominaisuudet',

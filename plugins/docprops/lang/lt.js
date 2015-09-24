@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'lt', {
 	metaCopyright: 'Autorinės teisės',
 	metaDescription: 'Dokumento apibūdinimas',
 	metaKeywords: 'Dokumento indeksavimo raktiniai žodžiai (atskirti kableliais)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<kitas>',
 	previewHtml: '<p>Tai yra <strong>pavyzdinis tekstas</strong>. Jūs naudojate <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Dokumento savybės',

@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'cy', {
 	metaCopyright: 'Hawlfraint',
 	metaDescription: 'Disgrifiad y Ddogfen',
 	metaKeywords: 'Allweddeiriau Indecsio Dogfen (gwahanu gyda choma)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'Arall...',
 	previewHtml: '<p>Dyma ychydig o <strong>destun sampl</strong>. Rydych chi\'n defnyddio <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Priodweddau Dogfen',

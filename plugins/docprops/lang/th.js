@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'th', {
 	metaCopyright: 'สงวนลิขสิทธิ์',
 	metaDescription: 'ประโยคอธิบายเกี่ยวกับเอกสาร',
 	metaKeywords: 'คำสำคัญอธิบายเอกสาร (คั่นคำด้วย คอมม่า)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<อื่น ๆ>',
 	previewHtml: '<p>นี่เป็น <strong>ข้อความตัวอย่าง</strong>. คุณกำลังใช้งาน <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'คุณสมบัติของเอกสาร',

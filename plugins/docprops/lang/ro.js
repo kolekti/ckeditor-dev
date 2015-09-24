@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'ro', {
 	metaCopyright: 'Drepturi de autor',
 	metaDescription: 'Descrierea documentului',
 	metaKeywords: 'Cuvinte cheie după care se va indexa documentul (separate prin virgulă)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'Altele...',
 	previewHtml: '<p>Acesta este un <strong>text exemplu</strong>. Folosiți <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Proprietăţile documentului',

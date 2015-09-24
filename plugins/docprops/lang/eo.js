@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'eo', {
 	metaCopyright: 'Kopirajto',
 	metaDescription: 'Dokumenta Priskribo',
 	metaKeywords: 'Ŝlosilvortoj de la Dokumento (apartigitaj de komoj)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<alia>',
 	previewHtml: '<p>Tio estas <strong>sampla teksto</strong>. Vi estas uzanta <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Dokumentaj Atributoj',

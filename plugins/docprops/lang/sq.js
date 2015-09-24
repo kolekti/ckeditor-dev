@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'sq', {
 	metaCopyright: 'Të drejtat e kopjimit',
 	metaDescription: 'Përshkrimi i Dokumentit',
 	metaKeywords: 'Fjalët kyçe të indeksimit të dokumentit (të ndarë me presje)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'Tjera...',
 	previewHtml: '<p>Ky është nje <strong>tekst shembull</strong>.  Ju jeni duke shfrytëzuar <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Karakteristikat e Dokumentit',

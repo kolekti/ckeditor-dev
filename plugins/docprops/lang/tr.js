@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'tr', {
 	metaCopyright: 'Telif',
 	metaDescription: 'Belge Tanımı',
 	metaKeywords: 'Belge Dizinleme Anahtar Kelimeleri (virgülle ayrılmış)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<diğer>',
 	previewHtml: '<p>Bu bir <strong>örnek metindir</strong>. <a href="javascript:void(0)">CKEditor</a> kullanıyorsunuz.</p>',
 	title: 'Belge Özellikleri',

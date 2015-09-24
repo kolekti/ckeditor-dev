@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'nl', {
 	metaCopyright: 'Auteursrechten',
 	metaDescription: 'Documentbeschrijving',
 	metaKeywords: 'Trefwoorden voor indexering (komma-gescheiden)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'Anders...',
 	previewHtml: '<p>Dit is <strong>voorbeeld tekst</strong>. Je gebruikt <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Documenteigenschappen',

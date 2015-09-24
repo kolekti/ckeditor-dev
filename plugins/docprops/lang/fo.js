@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'fo', {
 	metaCopyright: 'Upphavsrættindi',
 	metaDescription: 'Dokumentlýsing',
 	metaKeywords: 'Dokument index lyklaorð (sundurbýtt við komma)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<annað>',
 	previewHtml: '<p>Hetta er ein <strong>royndartekstur</strong>. Tygum brúka <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Eginleikar fyri dokument',

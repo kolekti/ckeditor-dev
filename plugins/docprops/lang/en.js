@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'en', {
 	metaCopyright: 'Copyright',
 	metaDescription: 'Document Description',
 	metaKeywords: 'Document Indexing Keywords (comma separated)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'Other...',
 	previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Document Properties',

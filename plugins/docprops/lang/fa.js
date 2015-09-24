@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'fa', {
 	metaCopyright: 'حق انتشار',
 	metaDescription: 'توصیف سند',
 	metaKeywords: 'کلیدواژگان نمایه​گذاری سند (با کاما جدا شوند)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<سایر>',
 	previewHtml: '<p>این یک <strong>متن نمونه</strong> است. شما در حال استفاده از <a href="javascript:void(0)">CKEditor</a> هستید.</p>',
 	title: 'ویژگی​های سند',

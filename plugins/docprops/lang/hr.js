@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'hr', {
 	metaCopyright: 'Autorska prava',
 	metaDescription: 'Opis dokumenta',
 	metaKeywords: 'Ključne riječi dokumenta (odvojene zarezom)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<drugi>',
 	previewHtml: '<p>Ovo je neki <strong>primjer teksta</strong>. Vi koristite <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Svojstva dokumenta',

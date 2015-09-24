@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'ms', {
 	metaCopyright: 'Hakcipta',
 	metaDescription: 'Keterangan Dokumen',
 	metaKeywords: 'Kata Kunci Indeks Dokumen (dipisahkan oleh koma)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<lain>',
 	previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>', // MISSING
 	title: 'Ciri-ciri dokumen',

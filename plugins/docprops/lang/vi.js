@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'vi', {
 	metaCopyright: 'Bản quyền',
 	metaDescription: 'Mô tả tài liệu',
 	metaKeywords: 'Các từ khóa chỉ mục tài liệu (phân cách bởi dấu phẩy)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<khác>',
 	previewHtml: '<p>Đây là một số <strong>văn bản mẫu</strong>. Bạn đang sử dụng <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Thuộc tính Tài liệu',

@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'mn', {
 	metaCopyright: 'Зохиогчийн эрх',
 	metaDescription: 'Баримт бичгийн тайлбар',
 	metaKeywords: 'Баримт бичгийн индекс түлхүүр үг (таслалаар тусгаарлагдана)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<other>',
 	previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>', // MISSING
 	title: 'Баримт бичиг шинж чанар',

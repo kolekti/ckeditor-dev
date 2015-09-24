@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'ug', {
 	metaCopyright: 'نەشر ھوقۇقى',
 	metaDescription: 'بەت يۈزى چۈشەندۈرۈشى',
 	metaKeywords: 'بەت يۈزى ئىندېكىس ھالقىلىق سۆزى (ئىنگلىزچە پەش [,] بىلەن ئايرىلىدۇ)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'باشقا',
 	previewHtml: '<p>بۇ بىر قىسىم <strong>كۆرسەتمىگە ئىشلىتىدىغان تېكىست </strong>سىز نۆۋەتتە <a href="javascript:void(0)">CKEditor</a>.نى ئىشلىتىۋاتىسىز.</p>',
 	title: 'بەت خاسلىقى',

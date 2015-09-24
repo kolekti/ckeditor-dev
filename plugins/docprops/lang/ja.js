@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'ja', {
 	metaCopyright: '文書の著作権',
 	metaDescription: '文書の概要',
 	metaKeywords: '文書のキーワード(カンマ区切り)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<その他の>',
 	previewHtml: '<p>これは<strong>テキストサンプル</strong>です。 あなたは、<a href="javascript:void(0)">CKEditor</a>を使っています。</p>',
 	title: '文書 プロパティ',

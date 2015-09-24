@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'hu', {
 	metaCopyright: 'Szerzői jog',
 	metaDescription: 'Dokumentum leírás',
 	metaKeywords: 'Dokumentum keresőszavak (vesszővel elválasztva)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<más>',
 	previewHtml: '<p>Ez itt egy <strong>példa</strong>. A <a href="javascript:void(0)">CKEditor</a>-t használod.</p>',
 	title: 'Dokumentum tulajdonságai',

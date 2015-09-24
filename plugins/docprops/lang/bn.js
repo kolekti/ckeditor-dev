@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'bn', {
 	metaCopyright: 'কপীরাইট',
 	metaDescription: 'ডক্যূমেন্ট বর্ণনা',
 	metaKeywords: 'ডক্যুমেন্ট ইন্ডেক্স কিওয়ার্ড (কমা দ্বারা বিচ্ছিন্ন)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<other>',
 	previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>', // MISSING
 	title: 'ডক্যুমেন্ট প্রোপার্টি',

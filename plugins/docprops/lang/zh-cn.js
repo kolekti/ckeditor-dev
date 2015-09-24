@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'zh-cn', {
 	metaCopyright: '版权',
 	metaDescription: '页面说明',
 	metaKeywords: '页面索引关键字 (用半角逗号[,]分隔)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<其他>',
 	previewHtml: '<p>这是一些<strong>演示用文字</strong>。您当前正在使用<a href="javascript:void(0)">CKEditor</a>。</p>',
 	title: '页面属性',

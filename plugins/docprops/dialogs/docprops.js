@@ -556,8 +556,8 @@ CKEDITOR.dialog.add( 'docProps', function( editor ) {
 					type: 'text',
 					id: 'metaTopicFile',
 					label: lang.metaTopicFile,
-					setup: setupMeta( 'topicfile' ),
-					commit: commitMeta( 'topicfile' )
+					setup: setupMeta( 'topic_file' ),
+					commit: commitMeta( 'topic_file' )
 				}
 			]
 		}/*,

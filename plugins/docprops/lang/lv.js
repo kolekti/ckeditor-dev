@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'lv', {
 	metaCopyright: 'Autortiesības',
 	metaDescription: 'Dokumenta apraksts',
 	metaKeywords: 'Dokumentu aprakstoši atslēgvārdi (atdalīti ar komatu)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<cits>',
 	previewHtml: '<p>Šis ir <strong>parauga teksts</strong>. Jūs izmantojiet <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Dokumenta īpašības',

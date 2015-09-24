@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'ko', {
 	metaCopyright: '저작권',
 	metaDescription: '문서 설명',
 	metaKeywords: '문서 핵심어 (쉼표로 구분)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '기타...',
 	previewHtml: '<p>이것은 <strong>예문</strong>입니다. 여러분은 지금 <a href="javascript:void(0)">CKEditor</a>를 사용하고 있습니다.</p>',
 	title: '문서 속성',

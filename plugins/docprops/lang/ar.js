@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'ar', {
 	metaCopyright: 'المالك',
 	metaDescription: 'وصف الصفحة',
 	metaKeywords: 'الكلمات الأساسية (مفصولة بفواصل)َ',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<أخرى>',
 	previewHtml: '<p>هذه مجرد <strong>كتابة بسيطة</strong>من أجل التمثيل. <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'خصائص الصفحة',

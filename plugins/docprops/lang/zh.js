@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'zh', {
 	metaCopyright: '版權資訊',
 	metaDescription: '文件描述',
 	metaKeywords: '文件索引關鍵字 (以逗號分隔)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '其他…',
 	previewHtml: '<p>此為簡短的<strong>範例文字</strong>。您正在使用 <a href="javascript:void(0)">CKEditor</a>。</p>',
 	title: '文件屬性',

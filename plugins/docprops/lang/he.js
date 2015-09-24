@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'he', {
 	metaCopyright: 'זכויות יוצרים',
 	metaDescription: 'תיאור המסמך',
 	metaKeywords: 'מילות מפתח של המסמך (מופרדות בפסיק)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'אחר...',
 	previewHtml: '<p>זהו <strong>טקסט הדגמה</strong>. את/ה משתמש/ת ב<a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'מאפייני מסמך',

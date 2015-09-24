@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'sk', {
 	metaCopyright: 'Autorské práva (copyright)',
 	metaDescription: 'Popis dokumentu',
 	metaKeywords: 'Indexované kľúčové slová dokumentu (oddelené čiarkou)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'Iný...',
 	previewHtml: '<p>Toto je nejaký <strong>ukážkový text</strong>. Používate <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Vlastnosti dokumentu',

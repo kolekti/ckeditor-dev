@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'eu', {
 	metaCopyright: 'Copyright',
 	metaDescription: 'Dokumentuaren Deskribapena',
 	metaKeywords: 'Dokumentuaren Gako-hitzak (komarekin bananduta)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<other>',
 	previewHtml: '<p>Hau <strong>adibideko testua</strong> da. <a href="javascript:void(0)">CKEditor</a> erabiltzen ari zara.</p>',
 	title: 'Dokumentuaren Ezarpenak',

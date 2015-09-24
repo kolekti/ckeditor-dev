@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'ka', {
 	metaCopyright: 'Copyright',
 	metaDescription: 'დოკუმენტის აღწერა',
 	metaKeywords: 'დოკუმენტის საკვანძო სიტყვები (მძიმით გამოყოფილი)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'სხვა...',
 	previewHtml: '<p>ეს არის <strong>საცდელი ტექსტი</strong>. თქვენ <a href="javascript:void(0)">CKEditor</a>-ით სარგებლობთ.</p>',
 	title: 'დოკუმენტის პარამეტრები',

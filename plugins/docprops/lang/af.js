@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'af', {
 	metaCopyright: 'Kopiereg',
 	metaDescription: 'Dokument Beskrywing',
 	metaKeywords: 'Dokument Index Sleutelwoorde(comma verdeelt)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<ander>',
 	previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>', // MISSING
 	title: 'Dokument Eienskappe',

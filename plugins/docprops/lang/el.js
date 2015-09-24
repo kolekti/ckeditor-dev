@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'el', {
 	metaCopyright: 'Πνευματικά Δικαιώματα',
 	metaDescription: 'Περιγραφή Εγγράφου',
 	metaKeywords: 'Λέξεις κλειδιά δείκτες εγγράφου (διαχωρισμός με κόμμα)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'Άλλο...',
 	previewHtml: '<p>Αυτό είναι ένα <strong>παραδειγματικό κείμενο</strong>. Χρησιμοποιείτε το <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Ιδιότητες Εγγράφου',

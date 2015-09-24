@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'et', {
 	metaCopyright: 'Autoriõigus',
 	metaDescription: 'Dokumendi kirjeldus',
 	metaKeywords: 'Dokumendi võtmesõnad (eraldatud komadega)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: '<muu>',
 	previewHtml: '<p>See on <strong>näidistekst</strong>. Sa kasutad <a href="javascript:void(0)">CKEditori</a>.</p>',
 	title: 'Dokumendi omadused',

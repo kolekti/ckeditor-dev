@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'sv', {
 	metaCopyright: 'Upphovsrätt',
 	metaDescription: 'Sidans beskrivning',
 	metaKeywords: 'Sidans nyckelord (kommaseparerade)',
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'Annan...',
 	previewHtml: '<p>Detta är en <strong>exempel text</strong>. Du använder <a href="javascript:void(0)">CKEditor</a>.</p>',
 	title: 'Dokumentegenskaper',

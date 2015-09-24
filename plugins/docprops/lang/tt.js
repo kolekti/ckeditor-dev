@@ -34,7 +34,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'tt', {
 	metaCopyright: 'Хокук иясе',
 	metaDescription: 'Документ тасвирламасы',
 	metaKeywords: 'Document Indexing Keywords (comma separated)', // MISSING
-	metaTopicFile: 'topicfile',
+	metaTopicFile: 'topic_file',
         other: 'Башка...',
 	previewHtml: '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>', // MISSING
 	title: 'Документ үзлекләре',
