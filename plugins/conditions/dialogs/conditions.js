@@ -252,7 +252,7 @@
 			if (dialog.getValueOf('tab-basic','force_create') ||
 			    elt.hasAttribute('class')) {
 			    // create element
-			    if (elt.hasAscendent('p', false)) {
+			    if (elt.hasAscendant('p', false)) {
 				cond_elt = editor.document.createElement( 'span' );
 			    } else {
 				cond_elt = editor.document.createElement( 'div' );
@@ -273,6 +273,8 @@
 			    endchild = startchild
 			    ancestor = ancestor.getParent()
 			}
+			if (!startchild.equals(ancestor) || endchild.equals(ancestor))
+			    startchild = endchild = ancestor
 			if (!startchild.equals(ancestor)) {
 			    while (startchild) {
 				if (startchild.getParent().equals(ancestor))
@@ -318,7 +320,7 @@
 			    ancestor.hasAttribute('class')) {
 			    
 			    if (startchild.type == CKEDITOR.NODE_TEXT ||
-				startchild.hasAscendent('p', false)) {
+				startchild.hasAscendant('p', false)) {
 				cond_elt = editor.document.createElement( 'span' );
 			    } else {
 				cond_elt = editor.document.createElement( 'div' );
