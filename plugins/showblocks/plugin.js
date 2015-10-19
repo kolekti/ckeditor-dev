@@ -12,8 +12,11 @@
 ( function() {
 	'use strict';
 
-	var commandDefinition = {
-		readOnly: 1,
+    var keys = {"structUp":27    // Esc
+	       }
+    
+    var commandDefinition = {
+	    readOnly: 1,
 		preserveState: true,
 		editorFocus: false,
 
@@ -40,49 +43,76 @@
 		icons: 'showblocks,showblocks-rtl', // %REMOVE_LINE_CORE%
 		hidpi: true, // %REMOVE_LINE_CORE%
 		onLoad: function() {
-			var tags = [ 'p', 'div', 'pre', 'address', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
-				cssStd, cssImg, cssLtr, cssRtl,
+		    var tags = [ 'p', 'div', 'pre', 'address', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'dl','dt','dd' ],
+				cssStd, cssImg, cssLtr, cssRtl, cssSelect,
 				path = CKEDITOR.getUrl( this.path ),
 				// #10884 don't apply showblocks styles to non-editable elements and chosen ones.
 				// IE8 does not support :not() pseudoclass, so we need to reset showblocks rather
 				// than 'prevent' its application. We do that by additional rules.
 				supportsNotPseudoclass = !( CKEDITOR.env.ie && CKEDITOR.env.version < 9 ),
-				notDisabled = supportsNotPseudoclass ? ':not([contenteditable=false]):not(.cke_show_blocks_off)' : '',
-				tag, trailing;
+			        notDisabled = supportsNotPseudoclass ? ':not([contenteditable=false]):not(.cke_show_blocks_off)' : '',
+			before = ":before",
+			select = ":selection",
+			tag, trailing,
+			cssBody = "";//"body.cke_show_blocks {border-left:120px solid #F0F0F0; padding-left:10px;margin-top:0; margin-left:0;padding-top:8px}";
 
-			cssStd = cssImg = cssLtr = cssRtl = '';
-
+			cssStd = cssImg = cssLtr = cssRtl = cssSelect = '';
+		    
 			while ( ( tag = tags.pop() ) ) {
 				trailing = tags.length ? ',' : '';
 
-				cssStd += '.cke_show_blocks ' + tag + notDisabled + trailing;
-				cssLtr += '.cke_show_blocks.cke_contents_ltr ' + tag + notDisabled + trailing;
-				cssRtl += '.cke_show_blocks.cke_contents_rtl ' + tag + notDisabled + trailing;
-				cssImg += '.cke_show_blocks ' + tag + notDisabled + '{' +
-					'background-image:url(' + CKEDITOR.getUrl( path + 'images/block_' + tag + '.png' ) + ')' +
+			    cssStd += '.cke_show_blocks ' + tag + notDisabled + before;
+			    cssSelect += '.cke_show_blocks ' + tag + notDisabled + before + select;
+			    cssLtr += '.cke_show_blocks.cke_contents_ltr ' + tag + notDisabled + trailing;
+			    cssRtl += '.cke_show_blocks.cke_contents_rtl ' + tag + notDisabled + trailing;
+				//cssImg += '.cke_show_blocks ' + tag + notDisabled + '{' +
+				//	'background-image:url(' + CKEDITOR.getUrl( path + 'images/block_' + tag + '.png' ) + ')' +
+				//'}';
+			    // .cke_show_blocks p { ... }
+			    cssStd += '{' +
+				'margin-left:-8px;' +
+				'padding-left:10px;' +
+				'margin-bottom:5px;' +
+				
+//				'position:relative;' +
+//				'left:5px;' +
+				'display:block;' +
+//				'float:left;' +
+//				'width:30%;' +
+				'font-size:12px;' +
+				'font-family:sans-serif;' +
+				'font-weight:bold;' +
+				'color:#202080;' +
+				'background-color:#F0F0F0;' +
+				'content:"'+tag+'  " attr(class);' +
+				'border:1px solid #D0D0D0;' +
+				'cursor:pointer;' +
+			    //'padding-top:12px;' +
+				//'list-style-position:inside' +
 				'}';
 			}
+		        
 
-			// .cke_show_blocks p { ... }
-			cssStd += '{' +
-				'background-repeat:no-repeat;' +
-				'border:1px dotted gray;' +
-				'padding-top:8px' +
-			'}';
-
+		    cssSelect += '{background-color:#C0C0F0}'
 			// .cke_show_blocks.cke_contents_ltr p { ... }
-			cssLtr += '{' +
-				'background-position:top left;' +
-				'padding-left:8px' +
+		    cssLtr += '{' +
+			'display:block;' +
+			'border-left:1px solid #D0D0D0;' +
+			'margin-left:8px;' +
+			'padding-left:8px;' +
+			'list-style-type:none' +
 			'}';
 
 			// .cke_show_blocks.cke_contents_rtl p { ... }
-			cssRtl += '{' +
-				'background-position:top right;' +
-				'padding-right:8px' +
+		    cssRtl += '{' +
+			'display:block;' +
+			'border-right:1px solid #D0D0D0;' +
+			'margin-right:8px;' +
+			'padding-right:8px;' +
+			'list-style-type:none' +
 			'}';
 
-			CKEDITOR.addCss( cssStd.concat( cssImg, cssLtr, cssRtl ) );
+		    CKEDITOR.addCss( cssStd.concat(cssLtr, cssRtl, cssSelect));//.concat( cssImg ) );
 
 			// [IE8] Reset showblocks styles for non-editables and chosen elements, because
 			// it could not be done using :not() pseudoclass (#10884).
@@ -103,7 +133,53 @@
 			}
 		},
 		init: function( editor ) {
-			if ( editor.blockless )
+		    editor.on( 'contentDom', function() {
+			var resizer,
+			    editable = editor.editable();
+			
+			// In Classic editor it is better to use document
+			// instead of editable so event will work below body.
+			editable.attachListener( editable.isInline() ? editable : editor.document, 'mousemove', function( evt ) {
+			    evt = evt.data;
+			    var target = evt.getTarget();
+//			    console.log(target);
+			})
+			editable.attachListener( editable.isInline() ? editable : editor.document, 'keyup', function( evt ) {
+			    evt = evt.data;
+			    var target = evt.getTarget();
+			    console.log(evt.getKey());
+			    var selection = editor.getSelection()
+
+
+
+
+			    var selrange = selection.getRanges()[0];
+			    console.log("============== Selection")
+			    console.log(selection)
+			    console.log(selection.getType())
+			    console.log(selection.getSelectedElement())
+			    console.log(selection.getSelectedText())
+			    console.log(selection.getStartElement())
+			    //			    console.log(selection.getEndElement())
+			    console.log("        ------ Native")
+			    var native_selection = selection.getNative()
+			    console.log(native_selection)
+			    console.log("        ------ Ranges")
+			    console.log(selrange.startOffset)
+			    console.log(selrange.startContainer)
+			    console.log(selrange.endOffset)
+			    console.log(selrange.endContainer)
+			})
+		    })
+					       
+			    
+
+
+			    
+
+
+				    
+		    if ( editor.blockless )
 				return;
 
 			var command = editor.addCommand( 'showblocks', commandDefinition );

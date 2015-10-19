@@ -16,7 +16,6 @@
 	
 	var parse_expression = function(strexp) {
 	    critexps = strexp.split(';')
-	    console.log(critexps)
 	    $.each(critexps, function(i, critexp) {
 		if (critexp.length == 0)
 		    return
@@ -24,7 +23,6 @@
 		var operator = critexp.match(/= *\\?/)[0]
 		critvals = critexp.split(operator);
 		var criteria = critvals[0].trim(); 
-		console.log(critvals[0])
 		expr[criteria]['operator'] = operator.replace(' ','');
 		expr[criteria]['values']=[];
 		$.each(critvals[1].split(','), function(j, val) {
@@ -40,9 +38,7 @@
 
 	var condition_menu = function() {
 	    var conditions = [];
-	    console.log('condition menu');
 	    var conditions_setOperator = function(criteria, operator) {
-		console.log('set operator '+criteria+operator)
 		expr[criteria]['operator']=operator;
 	    };
 	    var conditions_addValue = function(criteria, value) {
@@ -73,7 +69,6 @@
 			buffer += ' '
 			buffer += item.operator
 			buffer += ' '
-			console.log('ser -> '+item.code+item.operator)
 			$.each(item.values, function(indexval, value) {
 			    if (indexval > 0)
 				buffer += " , "
@@ -81,9 +76,6 @@
 			});
 		    }
 		});
-		console.log('update expr');
-		console.log(expr)
-		console.log(buffer)
 		dialog.getContentElement("tab-basic","cond_ID").setValue(buffer, false)
 	    };
 	   
@@ -97,12 +89,6 @@
 		success: function(data) {
 		    
 		    $.each(data, function(index, item) {
-			//  console.log( '**item ' + item);
-			/*  console.log( $.each(item, function(vindex, value) {
-			    console.log(value);
-			    return 42;
-			    }))
-			    */
 			expr[index]={"code":index, 
 				     "def":item, 
 				     "operator":"=", 
@@ -111,7 +97,6 @@
 			var condvalues = [];
 			condvalues.push(["-- select --",""]);
 			$.each(item, function(vindex, value) {
-			    console.log(value);
 			    condvalues.push([value,value]);
 			});
 			
@@ -192,13 +177,13 @@
 			    console.log('onShow '+dialogType)
 			    var field = this;
 			    if(dialogType == 'edit') {
-				console.log(editor.conditions_getSelected());
 				field.setValue(editor.conditions_getSelected().getAttribute('class'), false);
 				parse_expression(field.getValue())
 			    }
 			}
 		    }]
 	    });
+	    /*
 	    if(dialogType == 'insert') {
 
 		conditions.push({
@@ -213,7 +198,7 @@
 			}]
 		});
 	    }
-	    // console.log(conditions);
+	    */
 	    return conditions
 	    
 	};
@@ -246,11 +231,14 @@
 		if (dialogType == 'edit') {
 		    cond_elt = editor.conditions_getSelected()
 		} else {
-		    selection = editor.getSelection()
+		    
+		    var selection = editor.getSelection()
 		    if (selection.getType() == CKEDITOR.SELECTION_ELEMENT) {
 			var elt = selection.getSelectedElement()
-			if (dialog.getValueOf('tab-basic','force_create') ||
+/*			if (dialog.getValueOf('tab-basic','force_create') ||
 			    elt.hasAttribute('class')) {
+*/
+			if (elt.hasAttribute('class')) {
 			    // create element
 			    if (elt.hasAscendant('p', false)) {
 				cond_elt = editor.document.createElement( 'span' );
@@ -273,8 +261,9 @@
 			    endchild = startchild
 			    ancestor = ancestor.getParent()
 			}
-			if (!startchild.equals(ancestor) || endchild.equals(ancestor))
+			if (startchild.equals(ancestor) || endchild.equals(ancestor))
 			    startchild = endchild = ancestor
+			
 			if (!startchild.equals(ancestor)) {
 			    while (startchild) {
 				if (startchild.getParent().equals(ancestor))
@@ -314,9 +303,9 @@
 				endchild = endchild.getParent()
 			    }
 			}
-			if (dialog.getValueOf('tab-basic','force_create') ||
-			    startchild.hasPrevious() ||
-			    endchild.hasNext() ||
+			if (/*dialog.getValueOf('tab-basic','force_create') ||*/
+			    (startchild.type == CKEDITOR.NODE_TEXT && startchild.hasPrevious()) ||
+			    (endchild.type == CKEDITOR.NODE_TEXT && endchild.hasNext()) ||
 			    ancestor.hasAttribute('class')) {
 			    
 			    if (startchild.type == CKEDITOR.NODE_TEXT ||
