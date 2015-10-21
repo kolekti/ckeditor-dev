@@ -36,6 +36,12 @@
 		}
 	};
 
+    var inBlockLabel = function(event) {
+	var target = event.getTarget();
+	var y = event.getPageOffset().y
+	return (y - target.$.offsetTop < 15)  
+    }
+    
 	CKEDITOR.plugins.add( 'showblocks', {
 		// jscs:disable maximumLineLength
 		lang: 'af,ar,bg,bn,bs,ca,cs,cy,da,de,el,en,en-au,en-ca,en-gb,eo,es,et,eu,fa,fi,fo,fr,fr-ca,gl,gu,he,hi,hr,hu,id,is,it,ja,ka,km,ko,ku,lt,lv,mk,mn,ms,nb,nl,no,pl,pt,pt-br,ro,ru,si,sk,sl,sq,sr,sr-latn,sv,th,tr,tt,ug,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
@@ -139,36 +145,44 @@
 			
 			// In Classic editor it is better to use document
 			// instead of editable so event will work below body.
-			editable.attachListener( editable.isInline() ? editable : editor.document, 'mousemove', function( evt ) {
+			editable.attachListener( editable.isInline() ? editable : editor.document, 'click', function( evt ) {
+			    
 			    evt = evt.data;
-			    var target = evt.getTarget();
-//			    console.log(target);
+			    if (inBlockLabel(evt)) {
+				console.log('select element')
+				var sel = editor.getSelection()
+				sel.selectElement( evt.getTarget() );
+			    }
+			    
 			})
 			editable.attachListener( editable.isInline() ? editable : editor.document, 'keyup', function( evt ) {
 			    evt = evt.data;
 			    var target = evt.getTarget();
 			    console.log(evt.getKey());
 			    var selection = editor.getSelection()
-
-
-
-
-			    var selrange = selection.getRanges()[0];
+			   
+			    var selType = selection.getType()
 			    console.log("============== Selection")
-			    console.log(selection)
-			    console.log(selection.getType())
-			    console.log(selection.getSelectedElement())
-			    console.log(selection.getSelectedText())
-			    console.log(selection.getStartElement())
-			    //			    console.log(selection.getEndElement())
-			    console.log("        ------ Native")
 			    var native_selection = selection.getNative()
+			    console.log("        ------ Native")
 			    console.log(native_selection)
-			    console.log("        ------ Ranges")
-			    console.log(selrange.startOffset)
-			    console.log(selrange.startContainer)
-			    console.log(selrange.endOffset)
-			    console.log(selrange.endContainer)
+			    console.log("        ------ CK")
+			    console.log(selection)
+			    console.log("type "+selType)
+			    if (selType == 3) {
+				console.log(selection.getSelectedElement())
+			    }
+			    if (selType == 2) {
+				var selrange = selection.getRanges()[0];
+				console.log(selection.getSelectedText())
+				console.log(selection.getStartElement())
+				//			    console.log(selection.getEndElement()
+				console.log("        ------ Ranges")
+				console.log(selrange.startOffset)
+				console.log(selrange.startContainer)
+				console.log(selrange.endOffset)
+				console.log(selrange.endContainer)
+			    }
 			})
 		    })
 					       
