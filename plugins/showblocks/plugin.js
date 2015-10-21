@@ -50,7 +50,9 @@
 		hidpi: true, // %REMOVE_LINE_CORE%
 		onLoad: function() {
 		    var tags = [ 'p', 'div', 'pre', 'address', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'dl','dt','dd' ],
-				cssStd, cssImg, cssLtr, cssRtl, cssSelect,
+			subtags = tags.slice(),
+			
+				cssStd, cssImg, cssLtr, cssRtl, cssSel,
 				path = CKEDITOR.getUrl( this.path ),
 				// #10884 don't apply showblocks styles to non-editable elements and chosen ones.
 				// IE8 does not support :not() pseudoclass, so we need to reset showblocks rather
@@ -58,22 +60,29 @@
 				supportsNotPseudoclass = !( CKEDITOR.env.ie && CKEDITOR.env.version < 9 ),
 			        notDisabled = supportsNotPseudoclass ? ':not([contenteditable=false]):not(.cke_show_blocks_off)' : '',
 			before = ":before",
-			select = ":selection",
-			tag, trailing,
+			select = "[data-selected-block]",
+			tag, trailing, subtag, subtrailing,
 			cssBody = "";//"body.cke_show_blocks {border-left:120px solid #F0F0F0; padding-left:10px;margin-top:0; margin-left:0;padding-top:8px}";
 
-			cssStd = cssImg = cssLtr = cssRtl = cssSelect = '';
+			cssStd = cssImg = cssLtr = cssRtl = cssSel = '';
 		    
 			while ( ( tag = tags.pop() ) ) {
-				trailing = tags.length ? ',' : '';
-
+			    trailing = tags.length ? ',' : '';
+			    
 			    cssStd += '.cke_show_blocks ' + tag + notDisabled + before;
-			    cssSelect += '.cke_show_blocks ' + tag + notDisabled + before + select;
+			    cssSel += '.cke_show_blocks ' + tag + select + notDisabled + before +',';
+			    for(var i=0; i < subtags.length; i++) {
+				subtag = subtags[i];
+				subtrailing = (i == subtags.length-1) ? '' : ',';
+				cssSel += '.cke_show_blocks ' + tag + select;
+				cssSel +=  ' ' + subtag + notDisabled + before + subtrailing;
+			    }
+			    cssSel += trailing;
 			    cssLtr += '.cke_show_blocks.cke_contents_ltr ' + tag + notDisabled + trailing;
 			    cssRtl += '.cke_show_blocks.cke_contents_rtl ' + tag + notDisabled + trailing;
-				//cssImg += '.cke_show_blocks ' + tag + notDisabled + '{' +
-				//	'background-image:url(' + CKEDITOR.getUrl( path + 'images/block_' + tag + '.png' ) + ')' +
-				//'}';
+			    //cssImg += '.cke_show_blocks ' + tag + notDisabled + '{' +
+			    //	'background-image:url(' + CKEDITOR.getUrl( path + 'images/block_' + tag + '.png' ) + ')' +
+			    //'}';
 			    // .cke_show_blocks p { ... }
 			    cssStd += '{' +
 				'margin-left:-8px;' +
@@ -97,9 +106,10 @@
 				//'list-style-position:inside' +
 				'}';
 			}
-		        
+		    
 
-		    cssSelect += '{background-color:#C0C0F0}'
+		    cssSel += '{background-color:#C0C0C0}'
+
 			// .cke_show_blocks.cke_contents_ltr p { ... }
 		    cssLtr += '{' +
 			'display:block;' +
@@ -118,7 +128,7 @@
 			'list-style-type:none' +
 			'}';
 
-		    CKEDITOR.addCss( cssStd.concat(cssLtr, cssRtl, cssSelect));//.concat( cssImg ) );
+		    CKEDITOR.addCss( cssStd.concat(cssLtr, cssRtl, cssSel));//.concat( cssImg ) );
 
 			// [IE8] Reset showblocks styles for non-editables and chosen elements, because
 			// it could not be done using :not() pseudoclass (#10884).
@@ -148,10 +158,16 @@
 			editable.attachListener( editable.isInline() ? editable : editor.document, 'click', function( evt ) {
 			    
 			    evt = evt.data;
+			    var target = evt.getTarget();
+			    var selected = editor.document.find('[data-selected-block]')
+			    for (var i = 0; i < selected.$.length; i++) {
+				selected.$.item(i).removeAttribute('data-selected-block');
+			    }
 			    if (inBlockLabel(evt)) {
 				console.log('select element')
 				var sel = editor.getSelection()
-				sel.selectElement( evt.getTarget() );
+				sel.selectElement( target );
+				target.setAttribute('data-selected-block','yes')
 			    }
 			    
 			})
