@@ -97,7 +97,8 @@
 				range.selectNodeContents( element );
 				range.select();
 			} else {
-				editor.getSelection().selectElement( element );
+			    editor.getSelection().selectElement( element );
+			    element.setAttribute('data-selected-block','yes')
 			}
 
 			// It is important to focus() *after* the above selection

@@ -36,7 +36,7 @@
 		}
 	};
 
-    var inBlockLabel = function(event) {
+    var clickInBlockLabel = function(event) {
 	var target = event.getTarget();
 	var y = event.getPageOffset().y
 	return (y - target.$.offsetTop < 15)  
@@ -152,22 +152,34 @@
 		    editor.on( 'contentDom', function() {
 			var resizer,
 			    editable = editor.editable();
-			
-			// In Classic editor it is better to use document
-			// instead of editable so event will work below body.
-			editable.attachListener( editable.isInline() ? editable : editor.document, 'click', function( evt ) {
-			    
-			    evt = evt.data;
-			    var target = evt.getTarget();
+
+			var remove_selected_blocks = function() {
 			    var selected = editor.document.find('[data-selected-block]')
 			    for (var i = 0; i < selected.$.length; i++) {
 				selected.$.item(i).removeAttribute('data-selected-block');
 			    }
-			    if (inBlockLabel(evt)) {
-				console.log('select element')
-				var sel = editor.getSelection()
-				sel.selectElement( target );
-				target.setAttribute('data-selected-block','yes')
+			}
+			
+			// In Classic editor it is better to use document
+			// instead of editable so event will work below body.
+			editor.on( 'selectionChange', function(evt) {
+			    console.log('select change')
+			    
+			    if (editor.editable().hasClass( 'cke_show_blocks' ) ){
+				remove_selected_blocks()
+			    }
+			})
+			editable.attachListener( editable.isInline() ? editable : editor.document, 'click', function( evt ) {
+			    if (editor.editable().hasClass( 'cke_show_blocks' ) ) {
+				remove_selected_blocks()
+				evt = evt.data;
+				var target = evt.getTarget();
+				if (clickInBlockLabel(evt)) {
+				    var sel = editor.getSelection()
+				    sel.selectElement( target );
+				    target.setAttribute('data-selected-block','yes')
+
+				}
 			    }
 			    
 			})
@@ -229,7 +241,6 @@
 				if ( command.state != CKEDITOR.TRISTATE_DISABLED )
 					command.refresh( editor );
 			} );
-
 			// Refresh the command on focus/blur in inline.
 			if ( editor.elementMode == CKEDITOR.ELEMENT_MODE_INLINE ) {
 				editor.on( 'focus', onFocusBlur );

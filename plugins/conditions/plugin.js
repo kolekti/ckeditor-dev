@@ -51,8 +51,16 @@
 		    return elt
 		return editor.conditions_getClosest(elt.getParent());
 	    }
+
+
+	    editor.conditions_elementSelected = function(elt) {
+		return elt.getAttribute('data-selected-block') != null
+	    }
+
 	    
 	    editor.conditions_canSurround = function(range) {
+		
+		
 		// is true if the range can be surrounded by a condition
 		// eg range not overlap existing condition
 		var boundaries = range.getBoundaryNodes(),
