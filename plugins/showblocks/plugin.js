@@ -164,10 +164,7 @@
 			// instead of editable so event will work below body.
 			editor.on( 'selectionChange', function(evt) {
 			    console.log('select change')
-			    
-			    if (editor.editable().hasClass( 'cke_show_blocks' ) ){
-				remove_selected_blocks()
-			    }
+			    console.log('event')
 			})
 			editable.attachListener( editable.isInline() ? editable : editor.document, 'click', function( evt ) {
 			    if (editor.editable().hasClass( 'cke_show_blocks' ) ) {
@@ -184,9 +181,14 @@
 			    
 			})
 			editable.attachListener( editable.isInline() ? editable : editor.document, 'keyup', function( evt ) {
+			    if (editor.editable().hasClass( 'cke_show_blocks' ) ){
+				remove_selected_blocks()
+			    }
+
 			    evt = evt.data;
 			    var target = evt.getTarget();
 			    console.log(evt.getKey());
+			    
 			    var selection = editor.getSelection()
 			   
 			    var selType = selection.getType()

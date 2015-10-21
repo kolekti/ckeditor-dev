@@ -98,12 +98,12 @@
 				range.select();
 			} else {
 			    editor.getSelection().selectElement( element );
-			    element.setAttribute('data-selected-block','yes')
 			}
 
 			// It is important to focus() *after* the above selection
 			// manipulation, otherwise Firefox will have troubles. #10119
 			editor.focus();
+		    element.setAttribute('data-selected-block','yes')
 		}
 
 		elementsPath.onClick = onClick;
