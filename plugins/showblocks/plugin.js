@@ -276,6 +276,12 @@
 					command.refresh( editor );
 			} );
 
+		        editor.on( 'getData', function(evt) {
+			    var data = evt.data.dataValue.replace(' data-selected-block="yes"','')
+			    evt.data.dataValue = data;
+			})
+
+
 			function onFocusBlur() {
 				command.refresh( editor );
 			}
