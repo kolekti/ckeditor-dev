@@ -149,22 +149,27 @@
 			}
 		},
 		init: function( editor ) {
+		    var remove_selected_blocks = function() {
+			var selected = editor.document.find('[data-selected-block]')
+			var root = new Array();
+			for (var i = 0; i < selected.count(); i++) {
+			    if (root.length == 0)
+				root.push(selected.getItem(i));
+			    selected.getItem(i).removeAttribute('data-selected-block');
+			}
+			return root;
+		    }
 		    editor.on( 'contentDom', function() {
 			var resizer,
 			    editable = editor.editable();
 
-			var remove_selected_blocks = function() {
-			    var selected = editor.document.find('[data-selected-block]')
-			    for (var i = 0; i < selected.$.length; i++) {
-				selected.$.item(i).removeAttribute('data-selected-block');
-			    }
-			}
 			
 			// In Classic editor it is better to use document
 			// instead of editable so event will work below body.
 			editor.on( 'selectionChange', function(evt) {
-			    console.log('select change')
+/*			    console.log('select change')
 			    console.log('event')
+*/
 			})
 			editable.attachListener( editable.isInline() ? editable : editor.document, 'click', function( evt ) {
 			    if (editor.editable().hasClass( 'cke_show_blocks' ) ) {
@@ -239,9 +244,25 @@
 			} );
 
 			// Refresh the command on setData.
+			editor.on( 'beforeGetModeData', function() {
+			    if (this.mode == "wysiwyg") {
+				var sel_blocks = remove_selected_blocks();
+				if (sel_blocks.length) {
+				    var range = editor.createRange();
+				    range.selectNodeContents( sel_blocks[0] );
+				    range.select();
+				}
+			    }
+		    	    console.log('mode change')
+			    console.log(this.mode);
+			} );
+
+
+			// Refresh the command on setData.
 			editor.on( 'mode', function() {
-				if ( command.state != CKEDITOR.TRISTATE_DISABLED )
-					command.refresh( editor );
+			    if ( command.state != CKEDITOR.TRISTATE_DISABLED )
+				    
+				    command.refresh( editor );
 			} );
 			// Refresh the command on focus/blur in inline.
 			if ( editor.elementMode == CKEDITOR.ELEMENT_MODE_INLINE ) {
