@@ -1,153 +1,86 @@
 ( function() {
     CKEDITOR.plugins.add( 'conditions', {
-	icons: 'conditions',
-	requires: 'dialog',
+	icons: 'editcondition,removecondition',
+	requires: 'dialog,showblocks',
 	lang: 'en,fr', // %REMOVE_LINE_CORE%
 	
 	init: function( editor ) {
 	    var allowed="div(*)";
+
+	    has_condition = function(block) {
+		var aclass = block.getAttribute('class')
+		return aclass && aclass.indexOf('=') != -1; 
+	    }
 	    
 	    editor.conditions_unwrap = function(condition_element) {
 		// remove a condition, entierly removing div and span elements,
 		// removing only class attributes on other elements (img, td...)
-		
-		var condition_element_name = condition_element.getName();
-		if (condition_element_name == 'div' || condition_element_name == 'span')
-		    condition_element.remove( true );
-		else
-		    condition_element.setAttribute('class','')
+		var condition_element = editor.
+		condition_element.removeAttribute('class')
 		
 	    }
+	 
 	    
-	    editor.conditions_getSelected = function(selection) {
-		// returns the nearest conditional element in common ancestors of selected elements 
-		if (selection == undefined)
-		    selection = editor.getSelection()
-		var ancestor = selection.getCommonAncestor()
-		if (ancestor.type == CKEDITOR.NODE_ELEMENT)
-		{
-		    if (condelt = editor.conditions_getClosest(ancestor))
-		    {
-			return condelt;
-		    }
-		} else {
-		    if (condelt = editor.conditions_getClosest(selection.getStartElement()))
-		    {
-			return condelt;
-		    }
-		}
-		return false;
-	    };	    
-	    
-	    
-	    editor.conditions_getClosest = function(elt) {
-		// returns the first ancestor elements that holds a condition
-		// returns false if no such element
-		if (elt == null)
-		    return false
-		if (elt.type == CKEDITOR.NODE_ELEMENT &&
-		    elt.getAttribute('class') &&
-		    elt.getAttribute('class').search('=') != -1)
-		    return elt
-		return editor.conditions_getClosest(elt.getParent());
-	    }
-
-
-	    editor.conditions_elementSelected = function(elt) {
-		return elt.getAttribute('data-selected-block') != null
-	    }
-
-	    
-	    editor.conditions_canSurround = function(range) {
-		
-		
-		// is true if the range can be surrounded by a condition
-		// eg range not overlap existing condition
-		var boundaries = range.getBoundaryNodes(),
-		    startCondition = editor.conditions_getClosest(boundaries.startNode),
-		    endCondition = editor.conditions_getClosest(boundaries.endNode);
-		if (startCondition && endCondition) {
-		    // both start & and are inside a conditional statement
-		    if(startCondition.equals(endCondition)) {
-			// it is the same, can surround if node are contiguous or simple text selection
-			if (boundaries.startNode.type == CKEDITOR.NODE_ELEMENT && boundaries.endNode.type == CKEDITOR.NODE_ELEMENT)
-			{
-			    return true
-			}
-			else if (boundaries.startNode.type == CKEDITOR.NODE_TEXT && boundaries.endNode.type == CKEDITOR.NODE_TEXT && boundaries.startNode.equals(boundaries.endNode) && (range.endOffset - range.startOffset > 0) )
-			{
-			    return true
-			}	    
-		    }
-		}
-		else if (!(startCondition || endCondition))
-		{
-		    console.log('not included in cond')
-		    // both elements not included in conditional element
-		    if (boundaries.startNode.type == CKEDITOR.NODE_ELEMENT && boundaries.endNode.type == CKEDITOR.NODE_ELEMENT)
-		    {
-			return true
-		    }
-		    else if (boundaries.startNode.type == CKEDITOR.NODE_TEXT && boundaries.endNode.type == CKEDITOR.NODE_TEXT && boundaries.startNode.equals(boundaries.endNode) && (range.endOffset - range.startOffset > 0) )
-		    {
-			return true
-		    }	    
-		}
-		return false
-	    }
-	    
-
+	  
 	    // include dialogs
 	    
 	    CKEDITOR.dialog.add( 'editCondition', this.path + 'dialogs/conditions.js' );
-	    CKEDITOR.dialog.add( 'insertCondition', this.path + 'dialogs/conditions.js' );
 	    
 	    // define commands
 	    
-	    editor.addCommand( 'editCondition', new CKEDITOR.dialogCommand( 'editCondition' ) );
-	    editor.addCommand( 'insertCondition', new CKEDITOR.dialogCommand( 'insertCondition' ) );
-	    editor.addCommand( 'removeCondition', new CKEDITOR.command( editor, {
+	    var cmd_edit = editor.addCommand( 'editCondition', new CKEDITOR.dialogCommand( 'editCondition' ) );
+	    var cmd_remove = editor.addCommand( 'removeCondition', new CKEDITOR.command( editor, {
 		exec: function() {
-		    console.log('remove condition');
-		    if (condelt = editor.conditions_getSelected())
-		    {
-			editor.conditions_unwrap(condelt)
+		    var block, blocks = editor.plugins.showblocks.getselectedblock(editor);
+		    if (blocks) {
+			for (var b = 0; b < blocks.count(); b++) {
+			    block = blocks.getItem(b);
+			    block.removeAttribute('class')
+			}
 		    }
+		    conditionButtonsState();
 		}
 	    }));
 	    
-	    editor.addCommand( 'testconditions', new CKEDITOR.command( editor, {
-		exec: function() {
-		    console.log('test --------- >');
-		    var selection = editor.getSelection()
-		    console.log('* selection')
-		    console.log(selection.getType())
-		    console.log(selection.getStartElement())
-		    console.log(selection.getCommonAncestor())
-		    var range = selection.getRanges()[0]
-		    console.log('* range')
-		    console.log(range)
-		    console.log('start')
-		    console.log(range.startContainer)
-		    console.log(range.getPreviousNode(function(){return true}))
-		    console.log('end')
-		    console.log(range.endContainer)
-		    console.log(range.getNextNode(function(){return true}))
-		    console.log(editor.getData())
-
-
-		    console.log('test --------- <');
-		}
-	    }));
-/*
-	    editor.ui.addButton( 'conditions', {
-		label: 'run test',
-		command: 'testconditions',
-		toolbar: 'insert'
+	    editor.ui.addButton( 'editCondition', {
+		label: editor.lang.conditions.toolbarEdit,
+		command: 'editCondition',
+		toolbar: 'tools,50'
 	    });
-*/
+
+	    editor.ui.addButton( 'removeCondition', {
+		label: editor.lang.conditions.toolbarRemove,
+		command: 'removeCondition',
+		toolbar: 'tools,40'
+	    });
+
+	    var conditionButtonsState = function() {
+		var blocks = editor.plugins.showblocks.getselectedblock(editor);
+		if (blocks && blocks.count()) {
+		    var block = blocks.getItem(0);
+		    if (block.hasAttribute('class')) {
+			if (has_condition(block)) {
+			    cmd_edit.setState( CKEDITOR.TRISTATE_OFF );
+			    cmd_remove.setState( CKEDITOR.TRISTATE_OFF );
+			} else {
+			    cmd_edit.setState( CKEDITOR.TRISTATE_DISABLED );
+			    cmd_remove.setState( CKEDITOR.TRISTATE_DISABLED );
+			}
+		    } else {
+			cmd_edit.setState( CKEDITOR.TRISTATE_OFF );
+			cmd_remove.setState( CKEDITOR.TRISTATE_DISABLED );
+		    }
+		} else {
+		    cmd_edit.setState( CKEDITOR.TRISTATE_DISABLED );
+		    cmd_remove.setState( CKEDITOR.TRISTATE_DISABLED );
+		}
+	    }
+	    editor.on( 'selectionChange', conditionButtonsState)
+		       
+	    editor.on( 'blockSelection', conditionButtonsState)
+		       
 	    // add menu definition
-	    
+	    /*
 	    if (editor.addMenuItems) {
 		// 1st, add a Menu Group
 		// tip: name it the same as your plugin. (I'm not sure about this)
@@ -178,29 +111,31 @@
 		    }
 		});
 	    }
-	    
+	    */
 	    // contextual activation of menus
-
+/*
 	    if (editor.contextMenu) {
 		editor.contextMenu.addListener(function(element, selection) {
-		    menu = {
-		    }
-		    var selrange = selection.getRanges()[0];
-		    //selrange.optimize();
+		    var menu = {}
+		    var selected_block = editor.plugins.showblocks.getselectedblock(editor)
 		    
-		    if (editor.conditions_canSurround(selrange)){
-			menu['insert_condition'] = CKEDITOR.TRISTATE_OFF;
+		    if (selected_block) {
+			if(has_condition(selected_block)) {
+			    menu['removeCondition'] = CKEDITOR.TRISTATE_OFF;
+			    menu['editCondition'] = CKEDITOR.TRISTATE_OFF;
+			} else {
+			    menu['insertCondition'] = CKEDITOR.TRISTATE_OFF;
+			}
+		    } else {
+			menu['removeCondition'] = CKEDITOR.TRISTATE_OFF;
+			menu['editCondition'] = CKEDITOR.TRISTATE_OFF;
+			menu['insertCondition'] = CKEDITOR.TRISTATE_OFF;
 		    }
 		    
-		    if (editor.conditions_getSelected(selection)) {
-			menu['remove_condition'] = CKEDITOR.TRISTATE_OFF;
-			menu['edit_condition'] = CKEDITOR.TRISTATE_OFF;
-		    }
-		    console.log(menu)
 		    return menu
 		});
 	    }
-	    
+	    */
 	}
 
 	

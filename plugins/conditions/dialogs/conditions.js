@@ -176,8 +176,10 @@
 			onShow:function( ) {
 			    console.log('onShow '+dialogType)
 			    var field = this;
-			    if(dialogType == 'edit') {
-				field.setValue(editor.conditions_getSelected().getAttribute('class'), false);
+			    var block = editor.plugins.showblocks.getselectedblock(editor)
+			    if (block && block.count()) {
+				block = block.getItem(0);
+				field.setValue(block.getAttribute('class'), false);
 				parse_expression(field.getValue())
 			    }
 			}
@@ -204,7 +206,7 @@
 	};
 
 	return {
-	    title: editor.lang.conditions[ dialogType == 'insert' ? 'titleInsert' : 'titleModify' ],
+	    title: editor.lang.conditions[ 'title' ],
             minWidth: 400,
             minHeight: 200,
             contents: [
@@ -228,116 +230,19 @@
 		var expr = dialog.getValueOf( 'tab-basic', 'cond_ID' );
 		// TODO
 		var cond_elt = null;
-		if (dialogType == 'edit') {
-		    cond_elt = editor.conditions_getSelected()
-		} else {
-		    
-		    var selection = editor.getSelection()
-		    if (selection.getType() == CKEDITOR.SELECTION_ELEMENT) {
-			var elt = selection.getSelectedElement()
-/*			if (dialog.getValueOf('tab-basic','force_create') ||
-			    elt.hasAttribute('class')) {
-*/
-			if (elt.hasAttribute('class')) {
-			    // create element
-			    if (elt.hasAscendant('p', false)) {
-				cond_elt = editor.document.createElement( 'span' );
-			    } else {
-				cond_elt = editor.document.createElement( 'div' );
-			    }
-			    cond_elt.insertAfter(elt)
-			    elt.move(cond_elt,true)
-			}
+		var block, blocks = editor.plugins.showblocks.getselectedblock(editor)
+		if (blocks)
+		    for (var b = 0; b < blocks.count(); b++) {
+			block = blocks.getItem(b);
+			block.setAttribute('class',expr)
 		    }
-		    else if (selection.getType() == CKEDITOR.SELECTION_TEXT) {
-			var ancestor = selection.getCommonAncestor()
-			var range = selection.getRanges()[0]
-			var startchild = range.startContainer
-			var endchild = range.endContainer
-			if (ancestor.type == CKEDITOR.NODE_TEXT) {
-			    // the selection is fully enclosed in a text element
-			    startchild.split(range.endOffset)
-			    startchild = startchild.split(range.startOffset)
-			    endchild = startchild
-			    ancestor = ancestor.getParent()
-			}
-			if (startchild.equals(ancestor) || endchild.equals(ancestor))
-			    startchild = endchild = ancestor
-			
-			if (!startchild.equals(ancestor)) {
-			    while (startchild) {
-				if (startchild.getParent().equals(ancestor))
-				    break;
-				
-				if (startchild.type == CKEDITOR.NODE_TEXT && range.startOffset > 1) {
-				    startchild = startchild.split(range.startOffset)
-				}
-			    
-				if (startchild.hasPrevious()) {
-				    // split the parent
-				    var cloned = startchild.getParent().clone()
-				    cloned.insertBefore(startchild.getParent())
-				    while (startchild.hasPrevious()) {
-					startchild.getPrevious().move(cloned)
-				    }
-				}
-				startchild = startchild.getParent()
-			    }
-			}
-			if (!endchild.equals(ancestor)) {
-			    while (endchild) {
-				if (endchild.getParent().equals(ancestor))
-				    break;
-				
-				if (endchild.type==CKEDITOR.NODE_TEXT && range.endOffset > 1) {
-				    endchild.split(range.endOffset)
-				}
-				if (endchild.hasNext()) {
-				    // split the parent
-				    var cloned = endchild.getParent().clone()
-				    cloned.insertAfter(endchild.getParent())
-				    while (endchild.hasNext()) {
-					endchild.getNext().move(cloned)
-				    }
-				}
-				endchild = endchild.getParent()
-			    }
-			}
-			if (/*dialog.getValueOf('tab-basic','force_create') ||*/
-			    (startchild.type == CKEDITOR.NODE_TEXT && startchild.hasPrevious()) ||
-			    (endchild.type == CKEDITOR.NODE_TEXT && endchild.hasNext()) ||
-			    ancestor.hasAttribute('class')) {
-			    
-			    if (startchild.type == CKEDITOR.NODE_TEXT ||
-				startchild.hasAscendant('p', false)) {
-				cond_elt = editor.document.createElement( 'span' );
-			    } else {
-				cond_elt = editor.document.createElement( 'div' );
-			    }
-			    cond_elt.insertBefore(startchild);
-			    moved = startchild;
-			    while (moved && !moved.equals(endchild)) {
-				var elt = moved.getNext(); 
-				moved.move(cond_elt);
-				moved = elt;
-			    }
-			    endchild.move(cond_elt);
-			} else {
-			    cond_elt = ancestor;
-			}
-		    }
-		}
-		cond_elt.setAttribute('class',expr)
 	    }
 	};
-    };
+    }
     
     CKEDITOR.dialog.add( 'editCondition', function(editor) {
 	return condDialog(editor,'edit')
     });
 
-    CKEDITOR.dialog.add( 'insertCondition', function(editor) {
-	return condDialog(editor,'insert')
-    });
     
 })();
