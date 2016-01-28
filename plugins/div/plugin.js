@@ -14,8 +14,9 @@
 		// jscs:disable maximumLineLength
 		lang: 'af,ar,bg,bn,bs,ca,cs,cy,da,de,el,en,en-au,en-ca,en-gb,eo,es,et,eu,fa,fi,fo,fr,fr-ca,gl,gu,he,hi,hr,hu,id,is,it,ja,ka,km,ko,ku,lt,lv,mk,mn,ms,nb,nl,no,pl,pt,pt-br,ro,ru,si,sk,sl,sq,sr,sr-latn,sv,th,tr,tt,ug,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
 		// jscs:enable maximumLineLength
-		icons: 'creatediv', // %REMOVE_LINE_CORE%
-		hidpi: true, // %REMOVE_LINE_CORE%
+		icons: 'creatediv,removediv', // %REMOVE_LINE_CORE%
+	        hidpi: true, // %REMOVE_LINE_CORE%
+
 		init: function( editor ) {
 			if ( editor.blockless )
 				return;
@@ -26,7 +27,7 @@
 			if ( CKEDITOR.dialog.isTabEnabled( editor, 'editdiv', 'advanced' ) )
 				allowed += ';div[dir,id,lang,title]{*}';
 
-			editor.addCommand( 'creatediv', new CKEDITOR.dialogCommand( 'creatediv', {
+ 			editor.addCommand( 'creatediv', new CKEDITOR.dialogCommand( 'creatediv', {
 				allowedContent: allowed,
 				requiredContent: 'div',
 				contextSensitive: true,
@@ -36,9 +37,12 @@
 				}
 			} ) );
 
-			editor.addCommand( 'editdiv', new CKEDITOR.dialogCommand( 'editdiv', { requiredContent: 'div' } ) );
-			editor.addCommand( 'removediv', {
+			var cmd_edit = editor.addCommand( 'editdiv', new CKEDITOR.dialogCommand( 'editdiv', { requiredContent: 'div' } ) );
+			var cmd_remove = editor.addCommand( 'removediv', {
 				requiredContent: 'div',
+			    refresh: function( editor, path ) {
+
+			    },
 				exec: function( editor ) {
 					var selection = editor.getSelection(),
 						ranges = selection && selection.getRanges(),
@@ -79,43 +83,86 @@
 				toolbar: 'blocks,50'
 			} );
 
-			if ( editor.addMenuItems ) {
-				editor.addMenuItems( {
-					editdiv: {
-						label: lang.edit,
-						command: 'editdiv',
-						group: 'div',
-						order: 1
-					},
-
-					removediv: {
-						label: lang.remove,
-						command: 'removediv',
-						group: 'div',
-						order: 5
-					}
-				} );
-
-				if ( editor.contextMenu ) {
-					editor.contextMenu.addListener( function( element ) {
-						if ( !element || element.isReadOnly() )
-							return null;
-
-
-						if ( CKEDITOR.plugins.div.getSurroundDiv( editor ) ) {
-							return {
-								editdiv: CKEDITOR.TRISTATE_OFF,
-								removediv: CKEDITOR.TRISTATE_OFF
-							};
-						}
-
-						return null;
-					} );
+			editor.ui.addButton && editor.ui.addButton( 'RemoveDiv', {
+			    label: lang.remove,
+			    command: 'removediv',
+			    toolbar: 'blocks,60'
+			} );
+/*
+		    editor.on( 'selectionChange', function(evt) {
+			var selection = editor.getSelection(),
+			    ranges = selection && selection.getRanges(),
+			    range,
+			    found = false;
+			
+			function findDiv( node ) {
+			    if (false && CKEDITOR.plugins.showblocks.clickInBlockLabel(evt)) {
+				// var node = evt.target;
+				if (node.type == 1 && node.getName() == 'div'  && !node.data( 'cke-div-added' ) ) {
+				    found = true;
+				    node.data( 'cke-div-added' );
 				}
+			    }
 			}
+			
+			for ( var i = 0; i < ranges.length; i++ ) {
+			    range = ranges[ i ];
+			    if ( range.collapsed )
+				findDiv( selection.getStartElement() );
+			    else {
+				walker = new CKEDITOR.dom.walker( range );
+				walker.evaluator = findDiv;
+				walker.lastForward();
+			    }
+			}
+			if (found) {
+			    cmd_remove.setState( CKEDITOR.TRISTATE_OFF );
+			    cmd_edit.setState( CKEDITOR.TRISTATE_OFF );
+			} else {
+			    cmd_remove.setState( CKEDITOR.TRISTATE_DISABLED );
+			    cmd_edit.setState( CKEDITOR.TRISTATE_DISABLED );
+			}
+		    });
+*/
+		    if ( editor.addMenuItems ) {
+			editor.addMenuItems( {
+			    editdiv: {
+				label: lang.edit,
+				command: 'editdiv',
+				group: 'div',
+				order: 1
+			    },
 
-			CKEDITOR.dialog.add( 'creatediv', this.path + 'dialogs/div.js' );
-			CKEDITOR.dialog.add( 'editdiv', this.path + 'dialogs/div.js' );
+			    removediv: {
+				label: lang.remove,
+				command: 'removediv',
+				group: 'div',
+				order: 5
+			    }
+			} );
+
+			if ( editor.contextMenu ) {
+			    editor.contextMenu.addListener( function( element ) {
+				if ( !element || element.isReadOnly() )
+				    return null;
+					    
+				var block = CKEDITOR.plugins.showblocks.clickedBlockLabel()
+							
+				
+				//if ( CKEDITOR.plugins.div.getSurroundDiv( editor ) ) {
+				if(block && block.getName() == 'div') {
+				    return {
+					editdiv: CKEDITOR.TRISTATE_OFF,
+					removediv: CKEDITOR.TRISTATE_OFF
+				    };
+				}
+				
+				return null;
+			    } );
+			}
+		    }
+		    CKEDITOR.dialog.add( 'creatediv', this.path + 'dialogs/div.js' );
+		    CKEDITOR.dialog.add( 'editdiv', this.path + 'dialogs/div.js' );
 		}
 	} );
 
@@ -127,5 +174,5 @@
 				return node.is( 'div' ) && !node.isReadOnly();
 			}, 1 );
 		}
-	};
+	    };
 } )();

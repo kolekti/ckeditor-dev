@@ -38,14 +38,8 @@
 
     var blocktags = [ 'p', 'div', 'pre', 'address', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'dl','dt','dd','table', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td' ];
 	
-    var clickInBlockLabel = function(event) {
-	var target = event.getTarget();
-	if (blocktags.indexOf(target.getName()) == -1)
-	    return false
-	var y = event.getPageOffset().y
-	return (y - target.$.offsetTop < 15)  
-    }
 
+    var lastBlockLabel = null;
     
     CKEDITOR.plugins.add( 'showblocks', {
 	// jscs:disable maximumLineLength
@@ -166,32 +160,34 @@
 		}
 		return root;
 	    }
-	    
+
 	    editor.on( 'contentDom', function() {
 		var resizer,
 		    editable = editor.editable();
 		
 		// In Classic editor it is better to use document
 		// instead of editable so event will work below body.
-		editor.on( 'selectionChange', function(evt) {
-		})
-		
+
 		// click event
 		editable.attachListener( editable.isInline() ? editable : editor.document, 'click', function( evt ) {
 		    // mode blocks activé ?
 		    if (editor.editable().hasClass( 'cke_show_blocks' ) ) {
-			// annule selection precedente
-			var old_selected_blocks = remove_selected_blocks()
 			evt = evt.data;
-			var target = evt.getTarget();
-			// click sur un pseudo element ?
-			if (clickInBlockLabel(evt)) {
-			    var sel = editor.getSelection()
-			    target.setAttribute('data-selected-block','yes')
-			    sel.selectElement( target );
-			    editor.fire( 'blockSelection', [ target ] );
-			} else if (old_selected_blocks.length) {
-			    editor.fire( 'blockSelection', [] );
+			if (evt.$.button == 0) {
+			    
+			    // annule selection precedente
+			    var old_selected_blocks = remove_selected_blocks()
+			    var target = evt.getTarget();
+			    // click sur un pseudo element ?
+			    if (CKEDITOR.plugins.showblocks.clickInBlockLabel(evt)) {
+				lastBlockLabel = target;
+				var sel = editor.getSelection()
+				target.setAttribute('data-selected-block','yes')
+				sel.selectElement( target );
+				editor.fire( 'blockSelection', [ target ] );
+			    } else if (old_selected_blocks.length) {
+				editor.fire( 'blockSelection', [] );
+			    }
 			}
 		    }
 		})
@@ -205,9 +201,9 @@
 		    
 		    evt = evt.data;
 		    var target = evt.getTarget();
-		    console.log(evt.getKey());
 		    
 		})
+
 	    })
 	    
 	    if ( editor.blockless )
@@ -227,16 +223,8 @@
 	    
 	    // Refresh the command on setData.
 	    editor.on( 'beforeGetModeData', function() {
-		console.log('get mode data')
 		if (this.mode == "wysiwyg") {
 		    remove_selected_blocks();
-/*
-		    if (sel_blocks.length) {
-			var range = editor.createRange();
-			range.selectNodeContents( sel_blocks[0] );
-			range.select();
-		    }
-*/
 		}
 	    } );
 	    
@@ -280,6 +268,21 @@
 	}
 	
     } );
+
+    CKEDITOR.plugins.showblocks = {
+	clickInBlockLabel:function(event) {
+	    var target = event.getTarget();
+	    if (blocktags.indexOf(target.getName()) == -1)
+		return false
+	    var y = event.getPageOffset().y
+	    // TODO : compute with margin / border
+	    return (y - target.$.offsetTop < 18)  
+	},
+	clickedBlockLabel:function() {
+	    return lastBlockLabel;
+	}
+    }
+    
 } )();
 
 /**

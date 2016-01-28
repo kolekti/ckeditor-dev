@@ -1072,9 +1072,13 @@
 			if ( inReadOnly && command in { paste: 1, cut: 1 } )
 				return CKEDITOR.TRISTATE_DISABLED;
 
-			if ( command == 'paste' )
-				return CKEDITOR.TRISTATE_OFF;
-
+		    if ( command == 'paste' ) {
+			var showBlocksCmd = editor.getCommand('showblocks');
+			if (showBlocksCmd && showBlocksCmd.state == CKEDITOR.TRISTATE_ON)
+			    return CKEDITOR.TRISTATE_DISABLED;
+			else
+			    return CKEDITOR.TRISTATE_OFF;
+		    }
 			// Cut, copy - check if the selection is not empty.
 			var sel = editor.getSelection(),
 				ranges = sel.getRanges(),

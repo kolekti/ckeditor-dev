@@ -175,9 +175,211 @@ CKEDITOR.dialog.add( 'docProps', function( editor ) {
 				body = doc.getBody();
 			this.commitContent( doc, html, head, body );
 		},
-		contents: [ {
+		contents: [
+/*
+		{
+			id: 'design',
+			label: lang.design,
+			elements: [ {
+				type: 'hbox',
+				widths: [ '60%', '40%' ],
+				children: [ {
+					type: 'vbox',
+					children: [
+						colorField( 'txtColor', 'txtColor', {
+							setup: function( doc, html, head, body ) {
+								this.setValue( body.getComputedStyle( 'color' ) );
+							},
+							commit: function( doc, html, head, body, isPreview ) {
+								if ( this.isChanged() || isPreview ) {
+									body.removeAttribute( 'text' );
+									var val = this.getValue();
+									if ( val )
+										body.setStyle( 'color', val );
+									else
+										body.removeStyle( 'color' );
+								}
+							}
+						} ),
+						colorField( 'bgColor', 'bgColor', {
+							setup: function( doc, html, head, body ) {
+								var val = body.getComputedStyle( 'background-color' ) || '';
+								this.setValue( val == 'transparent' ? '' : val );
+							},
+							commit: function( doc, html, head, body, isPreview ) {
+								if ( this.isChanged() || isPreview ) {
+									body.removeAttribute( 'bgcolor' );
+									var val = this.getValue();
+									if ( val )
+										body.setStyle( 'background-color', val );
+									else
+										resetStyle( body, 'background-color', 'transparent' );
+								}
+							}
+						} ),
+						{
+							type: 'hbox',
+							widths: [ '60%', '40%' ],
+							padding: 1,
+							children: [ {
+								type: 'text',
+								id: 'bgImage',
+								label: lang.bgImage,
+								setup: function( doc, html, head, body ) {
+									var val = body.getComputedStyle( 'background-image' ) || '';
+									if ( val == 'none' )
+										val = '';
+									else {
+										val = val.replace( /url\(\s*(["']?)\s*([^\)]*)\s*\1\s*\)/i, function( match, quote, url ) {
+											return url;
+										} );
+									}
+									this.setValue( val );
+								},
+								commit: function( doc, html, head, body ) {
+									body.removeAttribute( 'background' );
+									var val = this.getValue();
+									if ( val )
+										body.setStyle( 'background-image', 'url(' + val + ')' );
+									else
+										resetStyle( body, 'background-image', 'none' );
+								}
+							},
+							{
+								type: 'button',
+								id: 'bgImageChoose',
+								label: langCommon.browseServer,
+								style: 'display:inline-block;margin-top:10px;',
+								hidden: true,
+								filebrowser: 'design:bgImage'
+							} ]
+						},
+						{
+							type: 'checkbox',
+							id: 'bgFixed',
+							label: lang.bgFixed,
+							setup: function( doc, html, head, body ) {
+								this.setValue( body.getComputedStyle( 'background-attachment' ) == 'fixed' );
+							},
+							commit: function( doc, html, head, body ) {
+								if ( this.getValue() )
+									body.setStyle( 'background-attachment', 'fixed' );
+								else
+									resetStyle( body, 'background-attachment', 'scroll' );
+							}
+						}
+					]
+				},
+				{
+					type: 'vbox',
+					children: [
+						{
+							type: 'html',
+							id: 'marginTitle',
+							html: '<div style="text-align: center; margin: 0px auto; font-weight: bold">' + lang.margin + '</div>'
+						},
+						{
+							type: 'text',
+							id: 'marginTop',
+							label: lang.marginTop,
+							style: 'width: 80px; text-align: center',
+							align: 'center',
+							inputStyle: 'text-align: center',
+							setup: function( doc, html, head, body ) {
+								this.setValue( body.getStyle( 'margin-top' ) || body.getAttribute( 'margintop' ) || '' );
+							},
+							commit: commitMargin( 'top' )
+						},
+						{
+							type: 'hbox',
+							children: [
+								{
+									type: 'text',
+									id: 'marginLeft',
+									label: lang.marginLeft,
+									style: 'width: 80px; text-align: center',
+									align: 'center',
+									inputStyle: 'text-align: center',
+									setup: function( doc, html, head, body ) {
+										this.setValue( body.getStyle( 'margin-left' ) || body.getAttribute( 'marginleft' ) || '' );
+									},
+									commit: commitMargin( 'left' )
+								},
+								{
+									type: 'text',
+									id: 'marginRight',
+									label: lang.marginRight,
+									style: 'width: 80px; text-align: center',
+									align: 'center',
+									inputStyle: 'text-align: center',
+									setup: function( doc, html, head, body ) {
+										this.setValue( body.getStyle( 'margin-right' ) || body.getAttribute( 'marginright' ) || '' );
+									},
+									commit: commitMargin( 'right' )
+								}
+							]
+						},
+						{
+							type: 'text',
+							id: 'marginBottom',
+							label: lang.marginBottom,
+							style: 'width: 80px; text-align: center',
+							align: 'center',
+							inputStyle: 'text-align: center',
+							setup: function( doc, html, head, body ) {
+								this.setValue( body.getStyle( 'margin-bottom' ) || body.getAttribute( 'marginbottom' ) || '' );
+							},
+							commit: commitMargin( 'bottom' )
+						}
+					]
+				} ]
+			} ]
+		},
+*/
+		{
+			id: 'meta',
+		    label: lang.meta,
+			elements: [
+				{
+					type: 'textarea',
+					id: 'metaKeywords',
+					label: lang.metaKeywords,
+					setup: setupMeta( 'keywords' ),
+					commit: commitMeta( 'keywords' )
+				},
+				{
+					type: 'textarea',
+					id: 'metaDescription',
+					label: lang.metaDescription,
+					setup: setupMeta( 'description' ),
+					commit: commitMeta( 'description' )
+				},
+				{
+					type: 'text',
+					id: 'metaAuthor',
+					label: lang.metaAuthor,
+					setup: setupMeta( 'author' ),
+					commit: commitMeta( 'author' )
+				},
+				{
+					type: 'text',
+					id: 'metaCopyright',
+					label: lang.metaCopyright,
+					setup: setupMeta( 'copyright' ),
+					commit: commitMeta( 'copyright' )
+				},
+				{
+					type: 'text',
+					id: 'metaTopicFile',
+					label: lang.metaTopicFile,
+					setup: setupMeta( 'topic_file' ),
+					commit: commitMeta( 'topic_file' )
+				}
+			]
+		},
+		     {
 			id: 'general',
-			label: langCommon.generalTab,
+			label: langCommon.advancedTab,
 			elements: [ {
 				type: 'text',
 				id: 'title',
@@ -359,207 +561,6 @@ CKEDITOR.dialog.add( 'docProps', function( editor ) {
 					}
 				}
 			}]
-		},
-/*
-		{
-			id: 'design',
-			label: lang.design,
-			elements: [ {
-				type: 'hbox',
-				widths: [ '60%', '40%' ],
-				children: [ {
-					type: 'vbox',
-					children: [
-						colorField( 'txtColor', 'txtColor', {
-							setup: function( doc, html, head, body ) {
-								this.setValue( body.getComputedStyle( 'color' ) );
-							},
-							commit: function( doc, html, head, body, isPreview ) {
-								if ( this.isChanged() || isPreview ) {
-									body.removeAttribute( 'text' );
-									var val = this.getValue();
-									if ( val )
-										body.setStyle( 'color', val );
-									else
-										body.removeStyle( 'color' );
-								}
-							}
-						} ),
-						colorField( 'bgColor', 'bgColor', {
-							setup: function( doc, html, head, body ) {
-								var val = body.getComputedStyle( 'background-color' ) || '';
-								this.setValue( val == 'transparent' ? '' : val );
-							},
-							commit: function( doc, html, head, body, isPreview ) {
-								if ( this.isChanged() || isPreview ) {
-									body.removeAttribute( 'bgcolor' );
-									var val = this.getValue();
-									if ( val )
-										body.setStyle( 'background-color', val );
-									else
-										resetStyle( body, 'background-color', 'transparent' );
-								}
-							}
-						} ),
-						{
-							type: 'hbox',
-							widths: [ '60%', '40%' ],
-							padding: 1,
-							children: [ {
-								type: 'text',
-								id: 'bgImage',
-								label: lang.bgImage,
-								setup: function( doc, html, head, body ) {
-									var val = body.getComputedStyle( 'background-image' ) || '';
-									if ( val == 'none' )
-										val = '';
-									else {
-										val = val.replace( /url\(\s*(["']?)\s*([^\)]*)\s*\1\s*\)/i, function( match, quote, url ) {
-											return url;
-										} );
-									}
-									this.setValue( val );
-								},
-								commit: function( doc, html, head, body ) {
-									body.removeAttribute( 'background' );
-									var val = this.getValue();
-									if ( val )
-										body.setStyle( 'background-image', 'url(' + val + ')' );
-									else
-										resetStyle( body, 'background-image', 'none' );
-								}
-							},
-							{
-								type: 'button',
-								id: 'bgImageChoose',
-								label: langCommon.browseServer,
-								style: 'display:inline-block;margin-top:10px;',
-								hidden: true,
-								filebrowser: 'design:bgImage'
-							} ]
-						},
-						{
-							type: 'checkbox',
-							id: 'bgFixed',
-							label: lang.bgFixed,
-							setup: function( doc, html, head, body ) {
-								this.setValue( body.getComputedStyle( 'background-attachment' ) == 'fixed' );
-							},
-							commit: function( doc, html, head, body ) {
-								if ( this.getValue() )
-									body.setStyle( 'background-attachment', 'fixed' );
-								else
-									resetStyle( body, 'background-attachment', 'scroll' );
-							}
-						}
-					]
-				},
-				{
-					type: 'vbox',
-					children: [
-						{
-							type: 'html',
-							id: 'marginTitle',
-							html: '<div style="text-align: center; margin: 0px auto; font-weight: bold">' + lang.margin + '</div>'
-						},
-						{
-							type: 'text',
-							id: 'marginTop',
-							label: lang.marginTop,
-							style: 'width: 80px; text-align: center',
-							align: 'center',
-							inputStyle: 'text-align: center',
-							setup: function( doc, html, head, body ) {
-								this.setValue( body.getStyle( 'margin-top' ) || body.getAttribute( 'margintop' ) || '' );
-							},
-							commit: commitMargin( 'top' )
-						},
-						{
-							type: 'hbox',
-							children: [
-								{
-									type: 'text',
-									id: 'marginLeft',
-									label: lang.marginLeft,
-									style: 'width: 80px; text-align: center',
-									align: 'center',
-									inputStyle: 'text-align: center',
-									setup: function( doc, html, head, body ) {
-										this.setValue( body.getStyle( 'margin-left' ) || body.getAttribute( 'marginleft' ) || '' );
-									},
-									commit: commitMargin( 'left' )
-								},
-								{
-									type: 'text',
-									id: 'marginRight',
-									label: lang.marginRight,
-									style: 'width: 80px; text-align: center',
-									align: 'center',
-									inputStyle: 'text-align: center',
-									setup: function( doc, html, head, body ) {
-										this.setValue( body.getStyle( 'margin-right' ) || body.getAttribute( 'marginright' ) || '' );
-									},
-									commit: commitMargin( 'right' )
-								}
-							]
-						},
-						{
-							type: 'text',
-							id: 'marginBottom',
-							label: lang.marginBottom,
-							style: 'width: 80px; text-align: center',
-							align: 'center',
-							inputStyle: 'text-align: center',
-							setup: function( doc, html, head, body ) {
-								this.setValue( body.getStyle( 'margin-bottom' ) || body.getAttribute( 'marginbottom' ) || '' );
-							},
-							commit: commitMargin( 'bottom' )
-						}
-					]
-				} ]
-			} ]
-		},
-*/
-		{
-			id: 'meta',
-			label: lang.meta,
-			elements: [
-				{
-					type: 'textarea',
-					id: 'metaKeywords',
-					label: lang.metaKeywords,
-					setup: setupMeta( 'keywords' ),
-					commit: commitMeta( 'keywords' )
-				},
-				{
-					type: 'textarea',
-					id: 'metaDescription',
-					label: lang.metaDescription,
-					setup: setupMeta( 'description' ),
-					commit: commitMeta( 'description' )
-				},
-				{
-					type: 'text',
-					id: 'metaAuthor',
-					label: lang.metaAuthor,
-					setup: setupMeta( 'author' ),
-					commit: commitMeta( 'author' )
-				},
-				{
-					type: 'text',
-					id: 'metaCopyright',
-					label: lang.metaCopyright,
-					setup: setupMeta( 'copyright' ),
-					commit: commitMeta( 'copyright' )
-				},
-				{
-					type: 'text',
-					id: 'metaTopicFile',
-					label: lang.metaTopicFile,
-					setup: setupMeta( 'topic_file' ),
-					commit: commitMeta( 'topic_file' )
-				}
-			]
 		}/*,
 		{
 			id: 'preview',
